@@ -1,0 +1,9 @@
+server:
+  port:  8081
+
+
+
+#输出日志
+#logging:
+#  config: classpath:log/logback.xml
+
