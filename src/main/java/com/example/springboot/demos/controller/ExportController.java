@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * @date 2024/4/27  0:51
  */
+
+//导出任务方案
+
 @RestController
 @RequestMapping("/export")
 @Slf4j
@@ -26,16 +29,16 @@ public class ExportController {
     @PostMapping("/exportFile")
     public void exportFile() {
         new Thread(
-                new Runnable() {
-            @SneakyThrows
-            @Override
-            public void run() {
-                Thread thread1 = Thread.currentThread();
-                ExportUser sysUser =new ExportUser();
-                sysUser.setName(thread1.getName());
+                () -> {
+                    Thread thread1 = Thread.currentThread();
+                    ExportUser sysUser =new ExportUser();
+                    sysUser.setName(thread1.getName());
 
-                export.export(sysUser);
-            }
-        }).start();
+                    try {
+                        export.export(sysUser);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
     }
 }
